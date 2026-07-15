@@ -76,7 +76,7 @@ int_bottom:
     pushl %esp
     push (interruptnumber)
     call _ZN16InterruptManager15HandleInterruptEhj
-    add %esp, 6
+    add $8, %esp
     mov %eax, %esp # den stack wechseln
 
     # register laden
