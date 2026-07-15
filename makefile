@@ -6,7 +6,7 @@ GCCPARAMS = -m32 -Isrc -fno-use-cxa-atexit -nostdlib -ffreestanding -fno-builtin
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = build/arch/x86/loader.o build/arch/x86/gdt.o build/core/kernel.o
+objects = build/arch/x86/loader.o build/arch/x86/gdt.o build/arch/x86/port.o build/core/kernel.o
 
 # Compiles C++ files
 build/%.o: src/%.cpp
