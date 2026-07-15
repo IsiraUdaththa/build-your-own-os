@@ -1,4 +1,5 @@
 #include <arch/x86/gdt.h>
+#include <arch/x86/interrupts.h>
 #include <common/types.h>
 
 void printf(const char* str) {
@@ -43,5 +44,7 @@ extern "C" void callConstructors() {
 extern "C" void kernelMain(void* multiboot_structure, uint32_t magicnumber) {
     printf("Hello, Kernel World!");
     GlobalDescriptorTable gdt;
+    InterruptManager interrupts(0x20, &gdt);
+    interrupts.Activate();
     while (1);
 }
