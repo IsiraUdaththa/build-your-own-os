@@ -12,6 +12,7 @@ objects = build/arch/x86/loader.o \
 		  build/arch/x86/interrupts.o \
 		  build/arch/x86/interruptstubs.o \
 		  build/drivers/keyboard.o \
+		  build/drivers/mouse.o \
 		  build/core/kernel.o
 
 # Compiles C++ files
