@@ -7,6 +7,16 @@
 #include <common/types.h>
 #include <drivers/driver.h>
 
+enum BaseAddressRegisterType { MemoryMapping = 0, InputOutput = 1 };
+
+class BaseAddressRegister {
+   public:
+    bool prefetchable;
+    uint8_t* address;
+    uint32_t size;
+    BaseAddressRegisterType type;
+};
+
 class PeripheralComponentInterconnectDeviceDescriptor {
    public:
     uint32_t portBase;
@@ -41,8 +51,11 @@ class PeripheralComponentInterconnectController {
     void Write(uint16_t bus, uint16_t device, uint16_t function, uint32_t registeroffset, uint32_t value);
     bool DeviceHasFunctions(uint16_t bus, uint16_t device);
 
-    void SelectDrivers(DriverManager* driverManager);
+    void SelectDrivers(DriverManager* driverManager, InterruptManager* interrupts);
+    Driver* GetDriver(PeripheralComponentInterconnectDeviceDescriptor dev, InterruptManager* interrupts);
+
     PeripheralComponentInterconnectDeviceDescriptor GetDeviceDescriptor(uint16_t bus, uint16_t device, uint16_t function);
+    BaseAddressRegister GetBaseAddressRegister(uint16_t bus, uint16_t device, uint16_t function, uint16_t bar);
 };
 
 #endif  // __PCI_H__
