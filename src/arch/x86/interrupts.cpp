@@ -2,6 +2,7 @@
 #include <arch/x86/interrupts.h>
 
 void printf(const char* str);
+void printfHex(uint8_t);
 
 InterruptHandler::InterruptHandler(InterruptManager* interruptManager, uint8_t InterruptNumber) {
     this->InterruptNumber = InterruptNumber;
@@ -133,11 +134,8 @@ uint32_t InterruptManager::DoHandleInterrupt(uint8_t interrupt, uint32_t esp) {
     if (handlers[interrupt] != 0) {
         esp = handlers[interrupt]->HandleInterrupt(esp);
     } else if (interrupt != hardwareInterruptOffset) {
-        char* foo = "UNHANDLED INTERRUPT 0x00";
-        char* hex = "0123456789ABCDEF";
-        foo[22] = hex[(interrupt >> 4) & 0xF];
-        foo[23] = hex[interrupt & 0xF];
-        printf(foo);
+        printf("UNHANDLED INTERRUPT 0x");
+        printfHex(interrupt);
     }
 
     // hardware interrupts must be acknowledged
