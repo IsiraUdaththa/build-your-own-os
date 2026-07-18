@@ -5,6 +5,7 @@
 #include <drivers/driver.h>
 #include <drivers/keyboard.h>
 #include <drivers/mouse.h>
+#include <drivers/vga.h>
 
 void printf(const char* str) {
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
@@ -107,11 +108,15 @@ extern "C" void kernelMain(void* multiboot_structure, uint32_t magicnumber) {
 
     PeripheralComponentInterconnectController PCIController;
     PCIController.SelectDrivers(&drvManager, &interrupts);
+    VideoGraphicsArray vga;
 
     printf("Initializing Hardware, Stage 2\n");
     drvManager.ActivateAll();
 
     printf("Initializing Hardware, Stage 3\n");
     interrupts.Activate();
+
+    vga.SetMode(320,200,8);
+    vga.FillRectangle(0,0,320,200,0x00,0x00,0xA8);
     while (1);
 }

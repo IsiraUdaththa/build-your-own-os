@@ -15,6 +15,7 @@ objects = build/arch/x86/loader.o \
 		  build/drivers/driver.o \
 		  build/drivers/keyboard.o \
 		  build/drivers/mouse.o \
+		  build/drivers/vga.o \
 		  build/core/kernel.o
 
 # Compiles C++ files
